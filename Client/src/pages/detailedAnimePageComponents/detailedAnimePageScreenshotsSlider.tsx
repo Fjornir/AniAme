@@ -12,7 +12,6 @@ function DetailedAnimePageScreenshotsSlider(props: {
   anime: AnimePageDataType | undefined;
 }) {
   const { anime } = props;
-  const swiper = useSwiper();
 
   return (
     <div>

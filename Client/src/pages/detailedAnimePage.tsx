@@ -27,7 +27,6 @@ function DetailedAnimePage() {
 
   return (
     <div className="detailed">
-      <Header></Header>
       <div
         className="detailed-anime"
         style={{
@@ -68,7 +67,12 @@ function DetailedAnimePage() {
             </div> */}
           </div>
           <DetailedAnimePageInfo anime={anime}></DetailedAnimePageInfo>
-          <div className="detailed-anime-description">{parseDescription()}</div>
+          <div className="detailed-anime-description">
+            <h3 className="detailed-anime-description__title">Описание:</h3>
+            <div className="detailed-anime-description__text">
+              {parseDescription()}
+            </div>
+          </div>
         </div>
       </div>
       <div className="detailed-anime-previews">

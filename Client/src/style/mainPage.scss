@@ -10,9 +10,10 @@
     margin: 40px auto;
     list-style-type: none;
     display: grid;
-    grid-template-columns: repeat(5, 300px);
-    gap: 10px 20px;
+    grid-gap: 20px;
     padding: 0;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(6, 320px);
 
     &-item {
       position: relative;
@@ -23,12 +24,14 @@
 
       .anime-card {
         display: block;
-        height: 400px;
 
         &__image {
-          height: 400px;
-          width: 300px;
+          height: 320px;
+          width: 100%;
+          max-width: 100%;
+          max-height: 100%;
           border-radius: 5px;
+          object-fit: cover;
         }
 
         &-name-wrapper {
@@ -41,13 +44,14 @@
           border-radius: 0 0 5px 0;
           padding: 15px;
           padding-left: 45px;
+          
 
           &__title {
-            width: 240px;
+            width: 100%;
             color: #fefefe;
             font-family: "Open Sans", sans-serif;
             font-weight: 900;
-            font-size: 24px;
+            font-size: 18px;
             display: -webkit-box;
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;

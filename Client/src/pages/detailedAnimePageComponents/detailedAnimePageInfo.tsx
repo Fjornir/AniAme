@@ -131,9 +131,7 @@ function DetailedAnimePageInfo(props: {
         <div className="detailed-anime-info-item__label">Студия:</div>
         <div className="detailed-anime-info-item__data detailed-anime-info-item__studios">
           {anime?.studios.map((item) => {
-            return (
-                <img src={item.imageUrl} alt="альтернативный текст" />
-            );
+            return <img src={item.imageUrl} alt="альтернативный текст" />;
           })}
         </div>
       </div>

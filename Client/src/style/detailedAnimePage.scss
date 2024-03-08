@@ -16,7 +16,7 @@
 
     &-description {
       width: 900px;
-      margin-left: 35px;
+      padding: 30px 40px;
       color: #fefefe;
       font-weight: 700;
       text-shadow: 1px 1px 2px black;
@@ -38,8 +38,7 @@
       margin-left: 120px;
       width: 380px;
       height: 550px;
-      border-radius: 0% 0% 0% 0% / 0% 0% 0% 0%;
-      box-shadow: 10px 10px rgba(237, 68, 92, 0.15);
+      border-radius: 8px;
     }
     &-titles {
       margin-top: 105px;
@@ -49,14 +48,15 @@
       background-color: rgba(40, 40, 40, 0.7);
       border-radius: 10px;
       height: fit-content;
-      padding: 10px;
+      padding: 30px 40px;
       width: fit-content;
 
       &__default {
-        color: #ed445c;
+        color: #fefefe;
         text-shadow: 1px 1px 2px black;
         font-size: 34px;
         font-weight: 900;
+        padding: 5px 0;
       }
 
       &__english {
@@ -74,15 +74,18 @@
       background-color: rgba(40, 40, 40, 0.7);
       border-radius: 10px;
       height: fit-content;
-      padding: 10px;
+      padding: 30px 40px;
       color: #fefefe;
       font-weight: 700;
       text-shadow: 1px 1px 2px black;
       width: fit-content;
+      display: flex;
+      flex-direction: column;
+      row-gap: 16px;
 
       &-item {
         display: flex;
-        padding: 2px 0;
+        
         &__label {
           width: 200px;
         }
