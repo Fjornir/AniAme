@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post } from '@nestjs/common';
+import { Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { AnimeService } from './anime.service';
 
 @Controller()
@@ -11,8 +11,8 @@ export class AnimeController {
   }
 
   @Get('anime')
-  getAnime(): object {
-    return this.animeService.getMainAnimePageData();
+  getAnime(@Query() query: { limit: string; page: string }): object {
+    return this.animeService.getMainAnimePageData(query.limit, query.page);
   }
 
   @Post()

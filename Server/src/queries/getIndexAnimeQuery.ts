@@ -1,6 +1,6 @@
-export default `
+export default (limit: string, page: string) => `
 {
-  animes(limit: 50) {
+  animes(limit: ${limit}, page: ${page}) {
     id
     name
     russian

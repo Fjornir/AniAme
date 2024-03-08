@@ -1,13 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import type { MainAnimePageDataType } from './interfaces/MainAnimePageDataType';
 import type { AnimePageDataType } from './interfaces/AnimePageDataType';
-import IndexAnimeQuery from './queries/IndexAnimeQuery';
-import getAnimePageQuery from './queries/AnimePageQuery';
+import getIndexAnimeQuery from './queries/getIndexAnimeQuery';
+import getAnimePageQuery from './queries/getAnimePageQuery';
 import getAnimeBannerQuery from './queries/AnimeBannerQuery';
 
 @Injectable()
 export class AnimeService {
-  async getMainAnimePageData(): Promise<MainAnimePageDataType> {
+  async getMainAnimePageData(
+    limit: string,
+    page: string
+  ): Promise<MainAnimePageDataType> {
     const url = 'https://shikimori.one/api/graphql';
     const options = {
       method: 'POST',
@@ -17,11 +20,13 @@ export class AnimeService {
         'Accept-Encoding': 'gzip, deflate, br'
       },
       body: JSON.stringify({
-        query: IndexAnimeQuery
+        query: getIndexAnimeQuery(limit, page)
       })
     };
 
     try {
+      console.log('getMainAnimePageData');
+
       const res = await fetch(url, options);
       const animeList = await res.json();
       return animeList.data.animes;
