@@ -1,0 +1,12 @@
+.screenshots {
+  width: 1230px;
+  margin-left: 50px;
+  margin-top: 10px;
+
+  &-slide {
+    &__image {
+      width: 410px;
+      height: 250px;
+    }
+  }
+}

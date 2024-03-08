@@ -1,0 +1,109 @@
+.detailed { 
+  font-family: "Open Sans", sans-serif;
+  background-color: #282828;
+  height: 1800px;
+  &-anime {
+    margin-top: 49px;
+    height: 400px;
+    width: 100%;
+    position: relative;
+    background-color: black;
+    background-blend-mode: luminosity;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+
+    &-description {
+      width: 900px;
+      margin-left: 35px;
+      color: #fefefe;
+      font-weight: 700;
+      text-shadow: 1px 1px 2px black;
+    }
+
+    &-previews {
+      display: flex;
+      margin-top: 340px;
+      margin-left: 120px;
+    }
+
+    &-wrapper {
+      display: flex;
+      flex-direction: column;
+    }
+    &__image {
+      position: relative;
+      margin-top: 105px;
+      margin-left: 120px;
+      width: 380px;
+      height: 550px;
+      border-radius: 0% 0% 0% 0% / 0% 0% 0% 0%;
+      box-shadow: 10px 10px rgba(237, 68, 92, 0.15);
+    }
+    &-titles {
+      margin-top: 105px;
+      margin-left: 25px;
+      display: flex;
+      flex-direction: column;
+      background-color: rgba(40, 40, 40, 0.7);
+      border-radius: 10px;
+      height: fit-content;
+      padding: 10px;
+      width: fit-content;
+
+      &__default {
+        color: #ed445c;
+        text-shadow: 1px 1px 2px black;
+        font-size: 34px;
+        font-weight: 900;
+      }
+
+      &__english {
+        font-size: 16px;
+      }
+
+      &__japanese {
+        font-size: 16px;
+      }
+    }
+
+    &-info {
+      margin-top: 20px;
+      margin-left: 25px;
+      background-color: rgba(40, 40, 40, 0.7);
+      border-radius: 10px;
+      height: fit-content;
+      padding: 10px;
+      color: #fefefe;
+      font-weight: 700;
+      text-shadow: 1px 1px 2px black;
+      width: fit-content;
+
+      &-item {
+        display: flex;
+        padding: 2px 0;
+        &__label {
+          width: 200px;
+        }
+
+        &__genres {
+          display: flex;
+
+          div {
+            margin-right: 4px;
+          }
+        }
+
+        &__studios {
+          img {
+            height: 27px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,80 @@
+.main {
+  font-family: "Open Sans", sans-serif;
+  background-color: #282828;
+  &-wrapper {
+    background-color: #282828;
+    justify-content: center;
+    display: flex;
+  }
+  &-list {
+    margin: 40px auto;
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: repeat(5, 300px);
+    gap: 10px 20px;
+    padding: 0;
+
+    &-item {
+      position: relative;
+      max-width: 300px;
+      z-index: 0;
+      transition: all 0.3s ease;
+      opacity: 1;
+
+      .anime-card {
+        display: block;
+        height: 400px;
+
+        &__image {
+          height: 400px;
+          width: 300px;
+          border-radius: 5px;
+        }
+
+        &-name-wrapper {
+          box-sizing: border-box;
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+          background-color: rgba(0, 0, 0, 0.6);
+          text-align: right;
+          border-radius: 0 0 5px 0;
+          padding: 15px;
+          padding-left: 45px;
+
+          &__title {
+            width: 240px;
+            color: #fefefe;
+            font-family: "Open Sans", sans-serif;
+            font-weight: 900;
+            font-size: 24px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+          }
+        }
+      }
+      &:hover {
+        opacity: 0.5;
+      }
+    }
+  }
+  &__title {
+    margin: 0 auto;
+    max-width: 1580px;
+    margin-top: 60px;
+    color: #fefefe;
+    font-family: "Open Sans", sans-serif;
+    font-size: 56px;
+  }
+}
+
+.swiper-button-next,
+  .swiper-button-prev {
+    color: #ed445c;
+  }
+
+  .swiper-pagination-bullet-active {
+    background-color: #ed445c;
+  }
