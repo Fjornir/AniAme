@@ -25,8 +25,6 @@ export class AnimeService {
     };
 
     try {
-      console.log('getMainAnimePageData');
-
       const res = await fetch(url, options);
       const animeList = await res.json();
       return animeList.data.animes;
