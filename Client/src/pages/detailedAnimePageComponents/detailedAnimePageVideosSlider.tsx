@@ -14,7 +14,8 @@ function detailedAnimePageVideosSlider(props: {
   const { anime } = props;
 
   return (
-    <div>
+    <div className="videos">
+      <h3 className="videos__title">Видео</h3>
       <Swiper
         effect={"coverflow"}
         spaceBetween={30}
@@ -32,13 +33,13 @@ function detailedAnimePageVideosSlider(props: {
           depth: 0,
           modifier: 2.5,
         }}
-        className="videos"
+        className="videos-slider"
       >
         {anime?.videos.map((item) => {
           
           if (item.kind === "op" || item.kind === "ed" || item.kind === "op_ed_clip" ) {
             return (
-              <SwiperSlide className="videos-slide">
+              <SwiperSlide className="videos-slider__slide">
                 <img src={item.imageUrl} alt=""></img>
               </SwiperSlide>
             );

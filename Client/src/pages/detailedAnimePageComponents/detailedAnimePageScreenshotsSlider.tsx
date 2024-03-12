@@ -14,7 +14,10 @@ function DetailedAnimePageScreenshotsSlider(props: {
   const { anime } = props;
 
   return (
-    <div>
+    <div className="screenshots">
+      <h3 className="screenshots__title">
+        Кадры
+      </h3>
       <Swiper
         effect={"coverflow"}
         spaceBetween={30}
@@ -32,13 +35,13 @@ function DetailedAnimePageScreenshotsSlider(props: {
           depth: 0,
           modifier: 2.5,
         }}
-        className="screenshots"
+        className="screenshots-slider"
       >
         {anime?.screenshots.map((item) => {
           return (
-            <SwiperSlide className="screenshots-slide">
+            <SwiperSlide className="screenshots-slider-slide">
               <img
-                className="screenshots-slide__image"
+                className="screenshots-slider-slide__image"
                 src={item.originalUrl}
                 alt=""
               ></img>

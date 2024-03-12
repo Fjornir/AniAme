@@ -28,61 +28,60 @@ function DetailedAnimePage() {
   return (
     <div className="detailed">
       <div
-        className="detailed-anime"
+        className="detailed-wrapper"
         style={{
           backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${
             anime?.bannerImage ? anime?.bannerImage : anime?.poster.originalUrl
           })`,
         }}
       >
-        <img
-          className="detailed-anime__image"
-          src={anime?.poster.originalUrl}
-          alt=""
-        ></img>
-        <div className="detailed-anime-wrapper">
-          <div className="detailed-anime-titles">
-            <div className="detailed-anime-titles__default">
-              {anime?.licenseNameRu ??
-                anime?.russian ??
-                anime?.english ??
-                anime?.name}
+        <div className="detailed-anime">
+          <img
+            className="detailed-anime__image"
+            src={anime?.poster.originalUrl}
+            alt=""
+          ></img>
+          <div className="detailed-anime-wrapper">
+            <div className="detailed-anime-titles">
+              <div className="detailed-anime-titles__default">
+                {anime?.licenseNameRu ??
+                  anime?.russian ??
+                  anime?.english ??
+                  anime?.name}
+              </div>
+              <div className="detailed-anime-titles__default detailed-anime-titles__english">
+                {anime?.english ??
+                  anime?.russian ??
+                  anime?.english ??
+                  anime?.name}
+              </div>
+              <div className="detailed-anime-titles__default detailed-anime-titles__japanese">
+                {anime?.japanese ??
+                  anime?.russian ??
+                  anime?.english ??
+                  anime?.name}
+              </div>
             </div>
-            <div className="detailed-anime-titles__default detailed-anime-titles__english">
-              {anime?.english ??
-                anime?.russian ??
-                anime?.english ??
-                anime?.name}
-            </div>
-            <div className="detailed-anime-titles__default detailed-anime-titles__japanese">
-              {anime?.japanese ??
-                anime?.russian ??
-                anime?.english ??
-                anime?.name}
-            </div>
-            {/* <div className="detailed-anime-titles__default detailed-anime-titles__japanese">
-              {anime?.synonyms.map((item: string) => {
-                <div>{item}</div>
-              })}
-            </div> */}
-          </div>
-          <DetailedAnimePageInfo anime={anime}></DetailedAnimePageInfo>
-          <div className="detailed-anime-description">
-            <h3 className="detailed-anime-description__title">Описание:</h3>
-            <div className="detailed-anime-description__text">
-              {parseDescription()}
-            </div>
+            <DetailedAnimePageInfo anime={anime}></DetailedAnimePageInfo>
           </div>
         </div>
+        <div className="detailed-anime-description">
+          <h3 className="detailed-anime-description__title">Описание:</h3>
+          <div className="detailed-anime-description__text">
+            {parseDescription()}
+          </div>
+        </div>
+        <div className="detailed-anime-previews">
+          <DetailedAnimePageVideosSlider
+            anime={anime}
+          ></DetailedAnimePageVideosSlider>
+          <DetailedAnimePageScreenshotsSlider
+            anime={anime}
+          ></DetailedAnimePageScreenshotsSlider>
+        </div>
       </div>
-      <div className="detailed-anime-previews">
-        <DetailedAnimePageVideosSlider
-          anime={anime}
-        ></DetailedAnimePageVideosSlider>
-        <DetailedAnimePageScreenshotsSlider
-          anime={anime}
-        ></DetailedAnimePageScreenshotsSlider>
-      </div>
+      {/*
+       */}
     </div>
   );
 }

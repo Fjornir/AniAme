@@ -41,6 +41,8 @@ function MainAnimePage() {
     setAnimeList(listJson);
   };
 
+
+  
   const getMoreAnimes = async () => {
     console.log("getMoreAnimes Start", isLoading);
     setTimeout(async () => {

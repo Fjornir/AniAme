@@ -1,9 +1,9 @@
-.detailed { 
+.detailed {
   font-family: "Open Sans", sans-serif;
   background-color: #282828;
-  height: 1800px;
-  &-anime {
-    margin-top: 49px;
+
+  &-wrapper {
+    margin-top: 70px;
     height: 400px;
     width: 100%;
     position: relative;
@@ -13,9 +13,15 @@
     background-position: center;
     background-size: cover;
     display: flex;
+    flex-direction: column;
+  }
+
+  &-anime {
+    display: flex;
+    margin-top: 70px;
+    padding: 30px 40px;
 
     &-description {
-      width: 900px;
       padding: 30px 40px;
       color: #fefefe;
       font-weight: 700;
@@ -24,25 +30,22 @@
 
     &-previews {
       display: flex;
-      margin-top: 340px;
-      margin-left: 120px;
+      justify-content: space-between;
+      padding: 30px 40px;
     }
 
     &-wrapper {
       display: flex;
       flex-direction: column;
+      padding: 0 5%;
     }
+
     &__image {
       position: relative;
-      margin-top: 105px;
-      margin-left: 120px;
-      width: 380px;
-      height: 550px;
+      height: 540px;
       border-radius: 8px;
     }
     &-titles {
-      margin-top: 105px;
-      margin-left: 25px;
       display: flex;
       flex-direction: column;
       background-color: rgba(40, 40, 40, 0.7);
@@ -69,8 +72,6 @@
     }
 
     &-info {
-      margin-top: 20px;
-      margin-left: 25px;
       background-color: rgba(40, 40, 40, 0.7);
       border-radius: 10px;
       height: fit-content;
@@ -82,10 +83,11 @@
       display: flex;
       flex-direction: column;
       row-gap: 16px;
+      margin-top: 30px;
 
       &-item {
         display: flex;
-        
+
         &__label {
           width: 200px;
         }
