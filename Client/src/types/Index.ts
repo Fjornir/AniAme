@@ -1,3 +1,6 @@
+import DetailedAnimePage from "../pages/detailedAnimePage";
+import DetailedAnimePageScreenshotsSlider from "../pages/detailedAnimePageComponents/detailedAnimePageSlider";
+
 export interface IndexAnimeType {
   id: number;
   name: string;
@@ -85,20 +88,8 @@ export interface AnimePageDataType {
     relationEn: string;
   }[];
 
-  videos: {
-    id: number;
-    url: string;
-    name: string;
-    kind: string;
-    playerUrl: string;
-    imageUrl: string;
-  }[];
-  screenshots: {
-    id: number;
-    originalUrl: string;
-    x166Url: string;
-    x332Url: string;
-  }[];
+  videos: DetailedAnimePageVideos[];
+  screenshots: DetailedAnimePageScreenshots[];
 
   scoresStats: { score: string; count: string }[];
   statusesStats: { status: string; count: number }[];
@@ -107,5 +98,21 @@ export interface AnimePageDataType {
   descriptionHtml: string;
   descriptionSource: string;
   bannerImage: string;
-  coverImage:string;
+  coverImage: string;
+}
+
+export interface DetailedAnimePageScreenshots {
+  id: number;
+  originalUrl: string;
+  x166Url: string;
+  x332Url: string;
+}
+
+export interface DetailedAnimePageVideos {
+  id: number;
+  url: string;
+  name: string;
+  kind: string;
+  playerUrl: string;
+  imageUrl: string;
 }

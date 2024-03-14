@@ -1,9 +1,7 @@
 import React from "react";
 import { AnimePageDataType } from "../../types/Index";
 
-function DetailedAnimePageInfo(props: {
-  anime: AnimePageDataType | undefined;
-}) {
+function DetailedAnimePageInfo(props: { anime: AnimePageDataType }) {
   const { anime } = props;
 
   function animeGenres(
