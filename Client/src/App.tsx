@@ -16,7 +16,10 @@ function App() {
           <ScrollToTop />
           <Routes>
             <Route path="" element={<MainAnimePage />} />
-            <Route path="anime/:id" element={<DetailedAnimePage />} />
+            <Route
+              path="anime/:id"
+              element={<DetailedAnimePage key={window.location.pathname} />}
+            />
           </Routes>
         </div>
       </BrowserRouter>

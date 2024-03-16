@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useCallback, useEffect, useState } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import type {
   AnimePageDataType,
   DetailedAnimePageScreenshots,
   DetailedAnimePageVideos,
 } from "../types/Index";
-import Header from "../components/header";
 import DetailedAnimePageInfo from "./detailedAnimePageComponents/detailedAnimePageInfo";
 import DetailedAnimePageSlider from "./detailedAnimePageComponents/detailedAnimePageSlider";
 import "react-image-gallery/styles/scss/image-gallery.scss";
@@ -24,9 +23,24 @@ function DetailedAnimePage() {
   const [currentGalleryItem, setCurrentGalleryItem] = useState<number>(0);
   const { id } = useParams();
 
+  const escFunction = useCallback((event: { key: string }) => {
+    if (event.key === "Escape") {
+      setIsVisibleImageGallery(false);
+      setIsVisibleVideoGallery(false);
+    }
+  }, []);
+
   useEffect(() => {
     getAnime();
-  }, []);
+  }, [window.location.pathname]);
+
+  useEffect(() => {
+    document.addEventListener("keydown", escFunction, false);
+
+    return () => {
+      document.removeEventListener("keydown", escFunction, false);
+    };
+  }, [escFunction]);
 
   function getCustomVideoRender(item: any) {
     return (
@@ -87,12 +101,15 @@ function DetailedAnimePage() {
   }
 
   function parseDescription() {
+    if (anime?.description === null) return "Отсутствует";
     const parcedDescription = anime?.description.replace(/\[.*?\]/g, "");
     return parcedDescription;
   }
 
   return (
     <div className="detailed">
+      <span>{window.location.pathname}</span>
+
       {anime ? (
         <div
           className="detailed-wrapper"

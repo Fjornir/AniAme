@@ -36,7 +36,6 @@ function MainAnimePage() {
           page: "1",
         })
     );
-    console.log({ list });
     let listJson = await list.json();
     setAnimeList(listJson);
   };
@@ -114,30 +113,6 @@ function MainAnimePage() {
             ))}
           </ul>
         </InfiniteScroll>
-        {/* {animeList?.map((anime: IndexAnimeType) => (
-            <li key={anime.id} className="main-list-item">
-              <Link to={`anime/${anime.id}`} className="anime-card">
-                <img
-                  className="anime-card__image"
-                  src={anime.poster.mainUrl}
-                  alt={
-                    anime.licenseNameRu ??
-                    anime.russian ??
-                    anime.english ??
-                    anime.name
-                  }
-                />
-                <div className="anime-card-name-wrapper">
-                  <span className="anime-card-name-wrapper__title">
-                    {anime.licenseNameRu ??
-                      anime.russian ??
-                      anime.english ??
-                      anime.name}
-                  </span>
-                </div>
-              </Link>
-            </li>
-          ))} */}
       </div>
       {isLoading && <Spinner></Spinner>}
     </div>
