@@ -5,6 +5,12 @@ import { AnimeService } from './anime.service';
 export class AnimeController {
   constructor(private readonly animeService: AnimeService) {}
 
+  @Get('anime/search')
+  getAnimeSearch(@Query() query: { search: string }): object {
+    console.log(query.search);
+    return this.animeService.getAnimeSearchData(query.search);
+  }
+
   @Get(`anime/:id`)
   getAnimeId(@Param() params: { id: string }): object {
     return this.animeService.getAnimePageData(params.id);

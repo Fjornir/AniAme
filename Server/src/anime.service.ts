@@ -4,9 +4,34 @@ import type { AnimePageDataType } from './interfaces/AnimePageDataType';
 import getIndexAnimeQuery from './queries/getIndexAnimeQuery';
 import getAnimePageQuery from './queries/getAnimePageQuery';
 import getAnimeBannerQuery from './queries/AnimeBannerQuery';
+import getAnimeSearchQuery from './queries/getAnimeSearchQuery';
+import { AnimeSearchDataType } from './interfaces/AnimeSearchDataType';
 
 @Injectable()
 export class AnimeService {
+  async getAnimeSearchData(search: string): Promise<AnimeSearchDataType> {
+    const url = 'https://shikimori.one/api/graphql';
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+        'Accept-Encoding': 'gzip, deflate, br'
+      },
+      body: JSON.stringify({
+        query: getAnimeSearchQuery(search)
+      })
+    };
+
+    try {
+      const res = await fetch(url, options);
+      const animeList = await res.json();
+      return animeList.data.animes;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   async getMainAnimePageData(
     limit: string,
     page: string
