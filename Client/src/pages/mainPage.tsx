@@ -25,7 +25,6 @@ function MainAnimePage() {
     )
       return;
     setIsLoading(true);
-    console.log(isLoading);
   };
 
   const fetchedData = async () => {
@@ -43,7 +42,6 @@ function MainAnimePage() {
 
   
   const getMoreAnimes = async () => {
-    console.log("getMoreAnimes Start", isLoading);
     setTimeout(async () => {
       let list = await fetch(
         "http://localhost:8080/anime?" +
@@ -56,14 +54,12 @@ function MainAnimePage() {
       setPage(page + 1);
 
       let newPageAnimes = await list.json();
-      console.log(animeList, newPageAnimes);
 
       if (animeList) {
         setAnimeList(animeList.concat(newPageAnimes));
       }
 
       setIsLoading(false);
-      console.log("getMoreAnimes end", isLoading);
     }, 0);
   };
 

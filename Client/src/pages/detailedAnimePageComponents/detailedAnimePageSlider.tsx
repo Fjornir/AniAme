@@ -29,8 +29,6 @@ function DetailedAnimePageScreenshotsSlider(props: {
         effect={"coverflow"}
         spaceBetween={30}
         modules={[Navigation, Pagination, Scrollbar, A11y]}
-        onSlideChange={() => console.log("slide change")}
-        onSwiper={(swiper: any) => console.log(swiper)}
         loop={true}
         centeredSlides={true}
         grabCursor={true}

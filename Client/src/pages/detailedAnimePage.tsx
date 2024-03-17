@@ -60,17 +60,14 @@ function DetailedAnimePage() {
   ) {
     switch (type) {
       case "videos":
-        console.log("videos");
         setCurrentGalleryItem(index);
         setIsVisibleVideoGallery(true);
         break;
       case "screenshots":
-        console.log("screen");
         setCurrentGalleryItem(index);
         setIsVisibleImageGallery(true);
         break;
       default:
-        console.log("default");
         break;
     }
   }

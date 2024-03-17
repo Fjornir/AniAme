@@ -1,23 +1,10 @@
 import React from "react";
 import { AnimePageDataType } from "../../types/Index";
+import kindAnimes from "../../common/kindAnimes";
 
 function DetailedAnimePageInfo(props: { anime: AnimePageDataType }) {
   const { anime } = props;
 
-  function animeGenres(
-    props:
-      | { id: number; name: string; russian: string; kind: string }[]
-      | undefined
-  ) {
-    const res: any[] = [];
-
-    props?.forEach((item) => {
-      props[props.length - 1] === item
-        ? res.push(`${item.name}`)
-        : res.push(`${item.name}, `);
-    });
-    return res;
-  }
   function animeStatus(props: string | undefined) {
     switch (props) {
       case "anons":
@@ -50,36 +37,6 @@ function DetailedAnimePageInfo(props: { anime: AnimePageDataType }) {
         break;
       default:
         break;
-    }
-  }
-
-  function kindAnimes(props: string | undefined) {
-    if (props === "tv") {
-      return "ТВ Сериал";
-    }
-    if (props === "movie") {
-      return "Фильм";
-    }
-    if (props === "ova") {
-      return "OVA";
-    }
-    if (props === "ona") {
-      return "ONA";
-    }
-    if (props === "special") {
-      return "Спешл";
-    }
-    if (props === "tv_special") {
-      return "ТВ-Спешл";
-    }
-    if (props === "music") {
-      return "Музыка";
-    }
-    if (props === "pv") {
-      return "PV";
-    }
-    if (props === "cm") {
-      return "CM";
     }
   }
 
@@ -122,7 +79,7 @@ function DetailedAnimePageInfo(props: { anime: AnimePageDataType }) {
       <div className="detailed-anime-info-item">
         <div className="detailed-anime-info-item__label">Релиз в сезоне:</div>
         <div className="detailed-anime-info-item__data detailed-anime-info-item__genres">
-          {animeGenres(anime?.genres)}
+          {anime?.genres.map((item) => item.russian + " ")}
         </div>
       </div>
       <div className="detailed-anime-info-item">

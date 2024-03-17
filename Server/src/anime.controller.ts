@@ -7,7 +7,6 @@ export class AnimeController {
 
   @Get('anime/search')
   getAnimeSearch(@Query() query: { search: string }): object {
-    console.log(query.search);
     return this.animeService.getAnimeSearchData(query.search);
   }
 
