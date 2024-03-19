@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import type { IndexAnimeType } from "../types/Index";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Header from "../components/header";
 import Slider from "../components/slider";
 import Spinner from "../components/spinner";
@@ -39,8 +39,6 @@ function MainAnimePage() {
     setAnimeList(listJson);
   };
 
-
-  
   const getMoreAnimes = async () => {
     setTimeout(async () => {
       let list = await fetch(

@@ -6,6 +6,7 @@ import "./style/main.scss";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ScrollToTop from "./common/scrollToTop";
 import Header from "./components/header";
+import AnimeListPage from "./pages/listAnimePage";
 
 function App() {
   return (
@@ -19,6 +20,10 @@ function App() {
             <Route
               path="anime/:id"
               element={<DetailedAnimePage key={window.location.pathname} />}
+            />
+            <Route
+              path="/anime"
+              element={<AnimeListPage key={window.location.pathname} />}
             />
           </Routes>
         </div>

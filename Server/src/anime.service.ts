@@ -104,13 +104,5 @@ export class AnimeService {
     } catch (error) {
       console.error(error);
     }
-
-    // try {
-    //   const res = await fetch(url, options);
-    //   const animeList = await res.json();
-    //   return animeList.data.animes[0];
-    // } catch (error) {
-    //   console.error(error);
-    // }
   }
 }

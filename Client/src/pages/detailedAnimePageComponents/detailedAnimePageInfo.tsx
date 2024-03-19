@@ -9,13 +9,10 @@ function DetailedAnimePageInfo(props: { anime: AnimePageDataType }) {
     switch (props) {
       case "anons":
         return "Анонс";
-        break;
       case "ongoing":
         return `Выходит с ${anime?.airedOn.date} по ${anime?.releasedOn.date}`;
-        break;
       case "released":
         return `Вышло ${anime?.releasedOn.date}`;
-        break;
       default:
         break;
     }
