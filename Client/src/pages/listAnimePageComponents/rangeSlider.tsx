@@ -1,6 +1,64 @@
-import * as React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
+import { FiltersDateType } from "../../types/FiltersAnimePageDataType";
+
+export default function RangeSlider(props: {
+  min: number;
+  max: number;
+  date: FiltersDateType;
+  setDate: React.Dispatch<React.SetStateAction<FiltersDateType>>;
+  isSingleTarget: boolean;
+}) {
+  const { min, max, date, setDate, isSingleTarget } = props;
+
+  const filterConfig = {
+    singleTarget: { defaultValue: max },
+    doubleTarget: { defaultValue: [min, max] },
+  };
+
+  const handleChange = (event: Event, newValue: number | number[]) => {
+    let startYear;
+    let endYear;
+    if (isSingleTarget) {
+      startYear = newValue as number;
+      endYear = date.endYear;
+    } else {
+      [startYear, endYear] = newValue as number[];
+    }
+    setDate({
+      isCheckedSeason: isSingleTarget,
+      startYear: startYear,
+      endYear: endYear,
+      selectedSeasons: date.selectedSeasons,
+    });
+  };
+
+  return (
+    <div>
+      <Box sx={{ width: 300, padding: "0 16px" }}>
+        <Slider
+          getAriaLabel={() => "Temperature range"}
+          value={
+            !isSingleTarget && date.endYear
+              ? [date.startYear, date.endYear]
+              : date.startYear
+          }
+          valueLabelDisplay="auto"
+          onChange={handleChange}
+          defaultValue={
+            isSingleTarget
+              ? filterConfig.singleTarget.defaultValue
+              : filterConfig.doubleTarget.defaultValue
+          }
+          min={min}
+          max={max}
+          marks={marks}
+        />
+      </Box>
+    </div>
+  );
+}
 
 const marks = [
   {
@@ -26,40 +84,3 @@ const marks = [
     label: new Date().getFullYear().toString(),
   },
 ];
-function valuetext(value: number) {
-  return `${value}°C`;
-}
-
-export default function RangeSlider(props: {
-  min: number;
-  max: number;
-  selectedYears: number[];
-  setSelectedYears: React.Dispatch<React.SetStateAction<number[]>>;
-}) {
-  const { min, max, selectedYears, setSelectedYears } = props;
-
-  const handleChange = (event: Event, newValue: number | number[]) => {
-    setSelectedYears(newValue as number[]);
-  };
-
-  console.log((new Date().getFullYear() - 1990) / 4 + 1990);
-
-  return (
-    <div>
-      {" "}
-      <Box sx={{ width: 300, padding: "0 16px" }}>
-        <Slider
-          getAriaLabel={() => "Temperature range"}
-          value={selectedYears}
-          onChange={handleChange}
-          valueLabelDisplay="auto"
-          getAriaValueText={valuetext}
-          defaultValue={[min, max]}
-          min={min}
-          max={max}
-          marks={marks}
-        />
-      </Box>
-    </div>
-  );
-}

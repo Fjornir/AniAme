@@ -9,22 +9,19 @@ import getIndexAnimeQuery from "../querys/getIndexAnimeQuery";
 import axios from "axios";
 import Filter from "./listAnimePageComponents/filter";
 import getFiltredAnimeQuery from "../querys/getFiltredAnimeQuery";
+import { FiltersAnimePageDataType } from "../types/FiltersAnimePageDataType";
 import { useDebouncedCallback } from "use-debounce";
 
 export default function ListAnimePage() {
   const [animeList, setAnimeList] = useState<MainAnimePageDataType[]>();
   const [page, setPage] = useState<number>(4);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [filters, setFilters] = useState<{
-    selectedYears?: number[];
-  }>({});
+  const [filters, setFilters] = useState<FiltersAnimePageDataType>({});
 
   const getMainAnimePageData = async (
-    limit?: string,
-    page?: string,
-    filters?: {
-      selectedYears?: number[];
-    }
+    limit = "36",
+    page = "1",
+    filters?: FiltersAnimePageDataType
   ): Promise<MainAnimePageDataType[]> => {
     const url = "https://shikimori.one/api/graphql";
     const headers = {
