@@ -18,12 +18,12 @@ function App() {
           <Routes>
             <Route path="" element={<MainAnimePage />} />
             <Route
-              path="anime/:id"
-              element={<DetailedAnimePage key={window.location.pathname} />}
+              path="/anime/search"
+              element={<AnimeListPage key={window.location.pathname} />}
             />
             <Route
-              path="/anime"
-              element={<AnimeListPage key={window.location.pathname} />}
+              path="anime/:id"
+              element={<DetailedAnimePage key={window.location.pathname} />}
             />
           </Routes>
         </div>

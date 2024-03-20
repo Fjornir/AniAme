@@ -1,6 +1,7 @@
 import React from "react";
 import { AnimePageDataType } from "../../types/Index";
 import kindAnimes from "../../common/kindAnimes";
+import { Link } from "react-router-dom";
 
 function DetailedAnimePageInfo(props: { anime: AnimePageDataType }) {
   const { anime } = props;
@@ -76,7 +77,10 @@ function DetailedAnimePageInfo(props: { anime: AnimePageDataType }) {
       <div className="detailed-anime-info-item">
         <div className="detailed-anime-info-item__label">Релиз в сезоне:</div>
         <div className="detailed-anime-info-item__data detailed-anime-info-item__genres">
-          {anime?.genres.map((item) => item.russian + " ")}
+          {anime?.genres.map(
+            (item) =>
+              <Link to={`/anime/search/?genres=${item.name}`}>{item.russian}</Link>
+          )}
         </div>
       </div>
       <div className="detailed-anime-info-item">

@@ -11,7 +11,7 @@ function Header() {
           <Link to={"/"}>
             <img className="header__logo" src={logo} alt="" />
           </Link>
-          <Link to={"/anime"}>
+          <Link to={"/anime/search"}>
             <div>Аниме</div>
           </Link>
           <Search></Search>

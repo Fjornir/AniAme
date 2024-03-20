@@ -7,55 +7,38 @@ const getFiltredAnimeQuery = (
 ) => {
   const params = [];
 
-  // export interface FiltersAnimePageDataType {
-  //   date?: FiltersDateType;
-  // }
+  if (!filters) return;
 
-  // export interface FiltersDateType {
-  //   isCheckedSeason: boolean;
-  //   startYear: number;
-  //   endYear: number | null;
-  // }
-  if (filters?.date?.isCheckedSeason) {
-    if (filters?.date?.selectedSeasons.summer) {
-      params.push(`season: "summer_${filters?.date?.startYear}"`);
-    } else if (filters?.date?.selectedSeasons.fall) {
-      params.push(`season: "fall_${filters?.date?.startYear}"`);
-    } else if (filters?.date?.selectedSeasons.winter) {
-      params.push(`season: "winter_${filters?.date?.startYear}"`);
-    } else if (filters?.date?.selectedSeasons.spring) {
-      params.push(`season: "spring_${filters?.date?.startYear}"`);
+  const { date, genres } = filters;
+
+  if (genres?.length) {
+    params.push(`genre: "${genres.join(",")}"`);
+  }
+
+  if (date?.isCheckedSeason) {
+    if (date?.selectedSeasons.summer) {
+      params.push(`season: "summer_${date?.endYear}"`);
+    } else if (date?.selectedSeasons.fall) {
+      params.push(`season: "fall_${date?.endYear}"`);
+    } else if (date?.selectedSeasons.winter) {
+      params.push(`season: "winter_${date?.endYear}"`);
+    } else if (date?.selectedSeasons.spring) {
+      params.push(`season: "spring_${date?.endYear}"`);
     } else {
-      params.push(`season: "${filters?.date?.startYear}"`);
+      params.push(`season: "${date?.endYear}"`);
     }
-  } else if (filters?.date?.endYear) {
+  } else if (date?.endYear) {
     let selectedYearsStr;
-    const { startYear, endYear } = filters?.date;
+    const { startYear, endYear } = date;
 
     if (startYear === endYear) {
-      selectedYearsStr = `season: "${startYear}"`;
+      selectedYearsStr = `season: "${endYear}"`;
     } else {
       selectedYearsStr = `season: "${startYear}_${endYear}"`;
     }
     params.push(selectedYearsStr);
   }
   if (page) {
-    // if (filters?.selectedYear) {
-    //   params.push(`season: "${filters.selectedYear}"`);
-    // }
-
-    // if (filters?.selectedYears) {
-    //   let selectedYearsStr;
-    //   const [yearFrom, yearTo] = filters?.selectedYears;
-
-    //   if (yearFrom && yearFrom === yearTo) {
-    //     selectedYearsStr = `season: "${yearFrom}"`;
-    //   } else {
-    //     selectedYearsStr = `season: "${yearFrom}_${yearTo}"`;
-    //   }
-    //   params.push(selectedYearsStr);
-    // }
-
     const pageStr = `page: ${page}`;
     params.push(pageStr);
   }

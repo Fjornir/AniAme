@@ -21,8 +21,8 @@ export default function RangeSlider(props: {
     let startYear;
     let endYear;
     if (isSingleTarget) {
-      startYear = newValue as number;
-      endYear = date.endYear;
+      startYear = date.startYear;
+      endYear = newValue as number;
     } else {
       [startYear, endYear] = newValue as number[];
     }
@@ -42,7 +42,7 @@ export default function RangeSlider(props: {
           value={
             !isSingleTarget && date.endYear
               ? [date.startYear, date.endYear]
-              : date.startYear
+              : date.endYear
           }
           valueLabelDisplay="auto"
           onChange={handleChange}

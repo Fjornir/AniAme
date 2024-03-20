@@ -4,8 +4,8 @@ import { MainAnimePageDataType } from "../../types/MainAnimePageDataType";
 import axios from "axios";
 import getFiltredAnimeQuery from "../../querys/getFiltredAnimeQuery";
 import "../../style/components/filter.scss";
-import ContinueSlider from "./continueSlider";
 import { FiltersDateType } from "../../types/FiltersAnimePageDataType";
+import RangeSliderCheckboxes from "./rangeSliderCheckboxes";
 
 export default function Filter(props: {
   setFilters: React.Dispatch<
@@ -32,12 +32,8 @@ export default function Filter(props: {
     },
   });
 
-  // const [selectedYear, setSelectedYear] = useState<number>(0);
-
-  // const [selectedYear, setSelectedYear] = useState<number>(0);
-
   useEffect(() => {
-    setFilters({ date });
+    setFilters((filters) => ({ ...filters, date }));
   }, [date, setFilters]);
 
   function seasonSelectHandler(e: React.ChangeEvent<HTMLInputElement>) {
@@ -55,54 +51,12 @@ export default function Filter(props: {
     <div className="filter">
       <form>
         <div>
-          <div>
-            <input
-              type="checkbox"
-              id="scales"
-              name="scales"
-              checked={isSingleYear}
-              onChange={() => setIsSingleYear(!isSingleYear)}
-            />
-            Сезоны
-            {isSingleYear ? (
-              <div>
-                <input
-                  type="checkbox"
-                  id="summer-season"
-                  name="summer"
-                  checked={date.selectedSeasons.summer}
-                  onChange={seasonSelectHandler}
-                />
-                Лето
-                <input
-                  type="checkbox"
-                  id="fall-season"
-                  name="fall"
-                  checked={date.selectedSeasons.fall}
-                  onChange={seasonSelectHandler}
-                />
-                Осень
-                <input
-                  type="checkbox"
-                  id="winter-season"
-                  name="winter"
-                  checked={date.selectedSeasons.winter}
-                  onChange={seasonSelectHandler}
-                />
-                Зима
-                <input
-                  type="checkbox"
-                  id="spring-season"
-                  name="spring"
-                  checked={date.selectedSeasons.spring}
-                  onChange={seasonSelectHandler}
-                />
-                Весна
-              </div>
-            ) : (
-              ""
-            )}
-          </div>
+          <RangeSliderCheckboxes
+            isSingleYear={isSingleYear}
+            setIsSingleYear={setIsSingleYear}
+            date={date}
+            seasonSelectHandler={seasonSelectHandler}
+          ></RangeSliderCheckboxes>
           <RangeSlider
             min={minYear}
             max={maxYear}

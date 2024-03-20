@@ -11,27 +11,38 @@ import Filter from "./listAnimePageComponents/filter";
 import getFiltredAnimeQuery from "../querys/getFiltredAnimeQuery";
 import { FiltersAnimePageDataType } from "../types/FiltersAnimePageDataType";
 import { useDebouncedCallback } from "use-debounce";
+import { useSearchParams } from "react-router-dom";
+import GenresEnum from "../enums/GenresEnum";
 
 export default function ListAnimePage() {
   const [animeList, setAnimeList] = useState<MainAnimePageDataType[]>();
   const [page, setPage] = useState<number>(4);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isHasNotMoreData, setIsHasNotMoreData] = useState<boolean>(false);
   const [filters, setFilters] = useState<FiltersAnimePageDataType>({});
+  let [searchParams] = useSearchParams();
+  const firstAnimeChankLength = 36;
 
   const getMainAnimePageData = async (
-    limit = "36",
+    limit = firstAnimeChankLength.toString(),
     page = "1",
-    filters?: FiltersAnimePageDataType
+    isPrimaryLoad = false
   ): Promise<MainAnimePageDataType[]> => {
     const url = "https://shikimori.one/api/graphql";
     const headers = {
       "Content-Type": "application/json",
       Accept: "*/*",
-      "Accept-Encoding": "gzip, deflate, br",
     };
+    let newFilters = null;
+
+    if (!filters.date && !filters.genres) {
+      const genres = searchParams.get("genres")?.split(",");
+      const genreIds = genres?.map((item: string) => GenresEnum[item]);
+      newFilters = { ...filters, genres: genreIds };
+    }
 
     const graphqlQuery = {
-      query: getFiltredAnimeQuery(limit, page, filters),
+      query: getFiltredAnimeQuery(limit, page, newFilters || filters),
       variables: {},
     };
 
@@ -41,6 +52,13 @@ export default function ListAnimePage() {
       headers: headers,
       data: graphqlQuery,
     });
+
+    if (
+      isPrimaryLoad &&
+      response.data.data.animes.length < firstAnimeChankLength
+    ) {
+      setIsHasNotMoreData(true);
+    }
 
     return response.data.data.animes;
   };
@@ -56,17 +74,38 @@ export default function ListAnimePage() {
   };
 
   const fetchedData = async () => {
-    let listJson = await getMainAnimePageData("36", "1", filters);
+    console.log(filters);
+
+    let listJson = await getMainAnimePageData(
+      firstAnimeChankLength.toString(),
+      "1",
+      true
+    );
     setAnimeList(listJson);
   };
 
+  const handleSearchParams = () => {
+    const genres = searchParams.get("genres")?.split(",");
+    const genreIds = genres?.map((item: string) => GenresEnum[item]);
+    setFilters((filters) => ({ ...filters, genres: genreIds }));
+  };
+
   const getMoreAnimes = async () => {
+    console.log(filters);
+
+    if (isHasNotMoreData) {
+      return;
+    }
     setTimeout(async () => {
-      let newPageAnimes = await getMainAnimePageData(
-        "24",
-        page.toString(),
-        filters
-      );
+      let newPageAnimes = await getMainAnimePageData("24", page.toString());
+      console.log(newPageAnimes.length);
+
+      if (newPageAnimes.length < 24) {
+        console.log("no more cal");
+
+        setIsHasNotMoreData(true);
+        setIsLoading(false);
+      }
 
       setPage(page + 1);
 
@@ -79,6 +118,7 @@ export default function ListAnimePage() {
   };
 
   useEffect(() => {
+    handleSearchParams();
     fetchedData();
     window.addEventListener("scroll", handleScroll);
   }, []);
@@ -86,6 +126,7 @@ export default function ListAnimePage() {
   const debounced = useDebouncedCallback(() => fetchedData(), 1000);
 
   useEffect(() => {
+    setIsHasNotMoreData(false);
     debounced();
   }, [filters]);
 
@@ -104,17 +145,20 @@ export default function ListAnimePage() {
       <InfiniteScroll
         dataLength={animeList?.length || 0}
         next={getMoreAnimes}
-        hasMore={true}
+        hasMore={!isHasNotMoreData}
         loader={<Spinner></Spinner>}
         scrollThreshold="300px"
       >
         <ul id="scrollableDiv" className="main-list">
           {animeList?.map((anime: IndexAnimeType) => (
             <li key={anime.id} className="main-list-item">
-              <Link to={`${anime.id}`} className="anime-card">
+              <Link to={`/anime/${anime.id}`} className="anime-card">
                 <img
                   className="anime-card__image"
-                  src={anime.poster.mainUrl}
+                  src={
+                    anime.poster?.mainUrl ??
+                    "https://shikimori.one/assets/globals/missing/main.png"
+                  }
                   alt={
                     anime.licenseNameRu ??
                     anime.russian ??
