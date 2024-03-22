@@ -1,11 +1,10 @@
 import React, { useCallback, useEffect, useState } from "react";
 import RangeSlider from "./rangeSlider";
-import { MainAnimePageDataType } from "../../types/MainAnimePageDataType";
-import axios from "axios";
-import getFiltredAnimeQuery from "../../querys/getFiltredAnimeQuery";
 import "../../style/components/filter.scss";
 import { FiltersDateType } from "../../types/FiltersAnimePageDataType";
 import RangeSliderCheckboxes from "./rangeSliderCheckboxes";
+import GenresCheckboxes from "./genresCheckboxes";
+import { SetURLSearchParams } from "react-router-dom";
 
 export default function Filter(props: {
   setFilters: React.Dispatch<
@@ -13,12 +12,15 @@ export default function Filter(props: {
       date?: FiltersDateType;
     }>
   >;
+  setSearchParams: SetURLSearchParams;
 }) {
-  const { setFilters } = props;
+  const { setFilters, setSearchParams } = props;
   const minYear = 1990;
   const maxYear = new Date().getFullYear();
 
   const [isSingleYear, setIsSingleYear] = useState<boolean>(true);
+
+  const [genres, setGenres] = useState<string[]>([]);
 
   const [date, setDate] = useState<FiltersDateType>({
     isCheckedSeason: isSingleYear,
@@ -33,8 +35,10 @@ export default function Filter(props: {
   });
 
   useEffect(() => {
-    setFilters((filters) => ({ ...filters, date }));
-  }, [date, setFilters]);
+    console.log("123");
+
+    setFilters((filters) => ({ ...filters, date, genres }));
+  }, [date, setFilters, genres]);
 
   function seasonSelectHandler(e: React.ChangeEvent<HTMLInputElement>) {
     const name = e.target.name;
@@ -49,7 +53,7 @@ export default function Filter(props: {
 
   return (
     <div className="filter">
-      <form>
+      <form className="filter-form">
         <div>
           <RangeSliderCheckboxes
             isSingleYear={isSingleYear}
@@ -64,6 +68,13 @@ export default function Filter(props: {
             setDate={setDate}
             isSingleTarget={isSingleYear}
           ></RangeSlider>
+        </div>
+        <div>
+          <GenresCheckboxes
+            personName={genres}
+            setPersonName={setGenres}
+            setSearchParams={setSearchParams}
+          ></GenresCheckboxes>
         </div>
       </form>
     </div>

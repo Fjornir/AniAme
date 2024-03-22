@@ -20,7 +20,7 @@ export default function ListAnimePage() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isHasNotMoreData, setIsHasNotMoreData] = useState<boolean>(false);
   const [filters, setFilters] = useState<FiltersAnimePageDataType>({});
-  let [searchParams] = useSearchParams();
+  let [searchParams, setSearchParams] = useSearchParams();
   const firstAnimeChankLength = 36;
 
   const getMainAnimePageData = async (
@@ -37,6 +37,7 @@ export default function ListAnimePage() {
 
     if (!filters.date && !filters.genres) {
       const genres = searchParams.get("genres")?.split(",");
+
       const genreIds = genres?.map((item: string) => GenresEnum[item]);
       newFilters = { ...filters, genres: genreIds };
     }
@@ -91,8 +92,6 @@ export default function ListAnimePage() {
   };
 
   const getMoreAnimes = async () => {
-    console.log(filters);
-
     if (isHasNotMoreData) {
       return;
     }
@@ -140,7 +139,10 @@ export default function ListAnimePage() {
   return (
     <div className="filtered">
       <div>
-        <Filter setFilters={setFilters}></Filter>
+        <Filter
+          setSearchParams={setSearchParams}
+          setFilters={setFilters}
+        ></Filter>
       </div>
       <InfiniteScroll
         dataLength={animeList?.length || 0}

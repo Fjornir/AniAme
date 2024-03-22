@@ -1,0 +1,8 @@
+.genres {
+    display: flex;
+    width: 400px;
+    flex-wrap: wrap;
+    &-item {
+        display: flex;
+    }
+}
