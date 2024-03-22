@@ -9,11 +9,17 @@ const getFiltredAnimeQuery = (
 
   if (!filters) return;
 
-  const { date, genres } = filters;
+  const { date, genres, status } = filters;
+
+  if (status?.length) {
+    params.push(`status: "${status.join(",")}"`);
+  }
 
   if (genres?.length) {
     params.push(`genre: "${genres.join(",")}"`);
   }
+  
+  console.log(date);
 
   if (date?.isCheckedSeason) {
     if (date?.selectedSeasons.summer) {

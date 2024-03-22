@@ -1,26 +1,27 @@
 import React, { useCallback, useEffect, useState } from "react";
 import RangeSlider from "./rangeSlider";
 import "../../style/components/filter.scss";
-import { FiltersDateType } from "../../types/FiltersAnimePageDataType";
+import {
+  FiltersAnimePageDataType,
+  FiltersDateType,
+} from "../../types/FiltersAnimePageDataType";
 import RangeSliderCheckboxes from "./rangeSliderCheckboxes";
 import GenresCheckboxes from "./genresCheckboxes";
 import { SetURLSearchParams } from "react-router-dom";
+import AnimeStatus from "./animeStatus";
 
 export default function Filter(props: {
-  setFilters: React.Dispatch<
-    React.SetStateAction<{
-      date?: FiltersDateType;
-    }>
-  >;
+  filters: FiltersAnimePageDataType;
+  setFilters: React.Dispatch<React.SetStateAction<FiltersAnimePageDataType>>;
   setSearchParams: SetURLSearchParams;
 }) {
-  const { setFilters, setSearchParams } = props;
+  const { filters, setFilters, setSearchParams } = props;
   const minYear = 1990;
   const maxYear = new Date().getFullYear();
 
   const [isSingleYear, setIsSingleYear] = useState<boolean>(true);
-
-  const [genres, setGenres] = useState<string[]>([]);
+  const [genres, setGenres] = useState<string[]>(filters.genres);
+  const [status, setStatus] = useState<string[]>(filters.status);
 
   const [date, setDate] = useState<FiltersDateType>({
     isCheckedSeason: isSingleYear,
@@ -35,10 +36,11 @@ export default function Filter(props: {
   });
 
   useEffect(() => {
-    console.log("123");
-
-    setFilters((filters) => ({ ...filters, date, genres }));
-  }, [date, setFilters, genres]);
+    setFilters((filters) => {
+      console.log({ ...filters, date, genres, status });
+      return { ...filters, date, genres, status };
+    });
+  }, [date, setFilters, genres, status]);
 
   function seasonSelectHandler(e: React.ChangeEvent<HTMLInputElement>) {
     const name = e.target.name;
@@ -54,6 +56,9 @@ export default function Filter(props: {
   return (
     <div className="filter">
       <form className="filter-form">
+        <div>
+          <AnimeStatus status={status} setStatus={setStatus}></AnimeStatus>
+        </div>
         <div>
           <RangeSliderCheckboxes
             isSingleYear={isSingleYear}

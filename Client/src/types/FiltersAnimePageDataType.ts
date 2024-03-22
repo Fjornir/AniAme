@@ -1,6 +1,7 @@
 export interface FiltersAnimePageDataType {
   date?: FiltersDateType;
-  genres?: string[];
+  genres: string[];
+  status: string[];
 }
 
 export interface FiltersDateType {

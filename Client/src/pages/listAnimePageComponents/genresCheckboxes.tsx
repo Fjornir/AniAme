@@ -7,6 +7,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { SetURLSearchParams } from "react-router-dom";
+import { GenresIdNameEnum } from "../../enums/GenresEnum";
 
 function getStyles(name: string, personName: string[], theme: Theme) {
   return {
@@ -31,7 +32,13 @@ export default function GenresCheckboxes(props: {
     } = event;
     console.log(value);
 
-    setSearchParams(`?genres=` + value.toString());
+    setSearchParams(
+      `?genres=` +
+        Object.entries(GenresIdNameEnum)
+          .filter((item) => value.includes(item[0]))
+          .map((item) => item[1])
+    );
+
     setPersonName(
       // On autofill we get a stringified value.
       typeof value === "string" ? value.split(",") : value
@@ -51,13 +58,13 @@ export default function GenresCheckboxes(props: {
           input={<OutlinedInput label="Name" />}
           MenuProps={MenuProps}
         >
-          {genresNames.map((name) => (
+          {genresNames.map((item) => (
             <MenuItem
-              key={name.id}
-              value={name.id}
-              style={getStyles(name.name, personName, theme)}
+              key={item.name}
+              value={item.id}
+              style={getStyles(item.name, personName, theme)}
             >
-              {name.russian}
+              {item.russian}
             </MenuItem>
           ))}
         </Select>

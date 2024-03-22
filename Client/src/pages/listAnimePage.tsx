@@ -12,15 +12,33 @@ import getFiltredAnimeQuery from "../querys/getFiltredAnimeQuery";
 import { FiltersAnimePageDataType } from "../types/FiltersAnimePageDataType";
 import { useDebouncedCallback } from "use-debounce";
 import { useSearchParams } from "react-router-dom";
-import GenresEnum from "../enums/GenresEnum";
+import { GenresNameIdEnum } from "../enums/GenresEnum";
+
+function getDefaultFilters(
+  searchParams: URLSearchParams
+): FiltersAnimePageDataType {
+  const genres = searchParams.get("genres")?.split(",");
+
+  const genreIds = genres
+    ? genres.map((item: string) => GenresNameIdEnum[item])
+    : [];
+  return {
+    genres: genreIds,
+    status: [],
+  };
+}
 
 export default function ListAnimePage() {
+  let [searchParams, setSearchParams] = useSearchParams();
+
+  const defaultFilters = getDefaultFilters(searchParams);
+
   const [animeList, setAnimeList] = useState<MainAnimePageDataType[]>();
   const [page, setPage] = useState<number>(4);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isHasNotMoreData, setIsHasNotMoreData] = useState<boolean>(false);
-  const [filters, setFilters] = useState<FiltersAnimePageDataType>({});
-  let [searchParams, setSearchParams] = useSearchParams();
+  const [filters, setFilters] =
+    useState<FiltersAnimePageDataType>(defaultFilters);
   const firstAnimeChankLength = 36;
 
   const getMainAnimePageData = async (
@@ -33,17 +51,9 @@ export default function ListAnimePage() {
       "Content-Type": "application/json",
       Accept: "*/*",
     };
-    let newFilters = null;
-
-    if (!filters.date && !filters.genres) {
-      const genres = searchParams.get("genres")?.split(",");
-
-      const genreIds = genres?.map((item: string) => GenresEnum[item]);
-      newFilters = { ...filters, genres: genreIds };
-    }
 
     const graphqlQuery = {
-      query: getFiltredAnimeQuery(limit, page, newFilters || filters),
+      query: getFiltredAnimeQuery(limit, page, filters),
       variables: {},
     };
 
@@ -75,8 +85,6 @@ export default function ListAnimePage() {
   };
 
   const fetchedData = async () => {
-    console.log(filters);
-
     let listJson = await getMainAnimePageData(
       firstAnimeChankLength.toString(),
       "1",
@@ -86,9 +94,9 @@ export default function ListAnimePage() {
   };
 
   const handleSearchParams = () => {
-    const genres = searchParams.get("genres")?.split(",");
-    const genreIds = genres?.map((item: string) => GenresEnum[item]);
-    setFilters((filters) => ({ ...filters, genres: genreIds }));
+    // const genres = searchParams.get("genres")?.split(",");
+    // const genreIds = genres?.map((item: string) => GenresNameIdEnum[item]);
+    // setFilters((filters) => ({ ...filters, genres: genreIds }));
   };
 
   const getMoreAnimes = async () => {
@@ -97,7 +105,6 @@ export default function ListAnimePage() {
     }
     setTimeout(async () => {
       let newPageAnimes = await getMainAnimePageData("24", page.toString());
-      console.log(newPageAnimes.length);
 
       if (newPageAnimes.length < 24) {
         console.log("no more cal");
@@ -141,6 +148,7 @@ export default function ListAnimePage() {
       <div>
         <Filter
           setSearchParams={setSearchParams}
+          filters={filters}
           setFilters={setFilters}
         ></Filter>
       </div>
