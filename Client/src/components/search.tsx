@@ -6,10 +6,12 @@ import { Link } from "react-router-dom";
 import { Unstable_Popup as Popup } from "@mui/base/Unstable_Popup";
 import { styled } from "@mui/system";
 import kindAnimes from "../common/kindAnimes";
+import { AnimeSearchDataType } from "../types/AnimeSearchDataType";
+import getAnimeSearchQuery from "../querys/getAnimeSearchQuery";
 
 export default function Search() {
   const [inputText, setInputText] = useState<string>("");
-  const [anime, setAnime] = useState<AnimePageDataType[]>();
+  const [anime, setAnime] = useState<AnimeSearchDataType[]>();
   const [isNeedToUpdate, setIsNeedToUpdate] = useState<boolean>(false);
   const [isShowResults, setIsShowResults] = useState<boolean>(false);
 
@@ -43,14 +45,36 @@ export default function Search() {
     }
   }
 
+  async function getAnimeSearchData(
+    search: string
+  ): Promise<AnimeSearchDataType[]> {
+    const url = "https://shikimori.one/api/graphql";
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "*/*",
+        "Accept-Encoding": "gzip, deflate, br",
+      },
+      body: JSON.stringify({
+        query: getAnimeSearchQuery(search),
+      }),
+    };
+
+    const res = await fetch(url, options);
+    const animeList = await res.json();
+
+    return animeList.data.animes;
+  }
+
   async function getAnime() {
-    let list = await fetch(
-      "http://localhost:8080/anime/search?" +
-        new URLSearchParams({
-          search: inputText,
-        })
-    );
-    let listJson = await list.json();
+    // let list = await fetch(
+    //   "http://localhost:8080/anime/search?" +
+    //     new URLSearchParams({
+    //       search: inputText,
+    //     })
+    // );
+    let listJson = await getAnimeSearchData(inputText);
     setAnime(listJson);
     setIsNeedToUpdate(false);
     if (inputText) {

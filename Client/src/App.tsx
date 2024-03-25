@@ -16,7 +16,7 @@ function App() {
         <div className="content-width">
           <ScrollToTop />
           <Routes>
-            <Route path="AniAme" element={<MainAnimePage />} />
+            <Route path="/AniAme" element={<MainAnimePage />} />
             <Route
               path="/anime/search"
               element={<AnimeListPage key={window.location.pathname} />}
