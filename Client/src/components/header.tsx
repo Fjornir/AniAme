@@ -8,7 +8,7 @@ function Header() {
     <header className="header">
       <div className="content-width">
         <div className="header-wrapper">
-          <Link to={"/"}>
+          <Link to={"/AniAme"}>
             <img className="header__logo" src={logo} alt="" />
           </Link>
           <Link to={"/anime/search"}>

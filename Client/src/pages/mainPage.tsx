@@ -102,7 +102,7 @@ function MainAnimePage() {
           <ul id="scrollableDiv" className="main-list">
             {animeList?.map((anime: IndexAnimeType) => (
               <li key={anime.id} className="main-list-item">
-                <Link to={`anime/${anime.id}`} className="anime-card">
+                <Link to={`/anime/${anime.id}`} className="anime-card">
                   <img
                     className="anime-card__image"
                     src={anime.poster.mainUrl}
