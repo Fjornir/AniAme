@@ -9,6 +9,7 @@ import RangeSliderCheckboxes from "./rangeSliderCheckboxes";
 import GenresCheckboxes from "./genresCheckboxes";
 import { SetURLSearchParams } from "react-router-dom";
 import AnimeStatus from "./animeStatus";
+import OrderFilter from "./orderFilter";
 
 export default function Filter(props: {
   filters: FiltersAnimePageDataType;
@@ -22,6 +23,7 @@ export default function Filter(props: {
   const [isSingleYear, setIsSingleYear] = useState<boolean>(true);
   const [genres, setGenres] = useState<string[]>(filters.genres);
   const [status, setStatus] = useState<string[]>(filters.status);
+  const [order, setOrder] = React.useState<string>("ranked_shiki");
 
   const [date, setDate] = useState<FiltersDateType>({
     isCheckedSeason: isSingleYear,
@@ -37,10 +39,9 @@ export default function Filter(props: {
 
   useEffect(() => {
     setFilters((filters) => {
-      console.log({ ...filters, date, genres, status });
-      return { ...filters, date, genres, status };
+      return { ...filters, date, genres, status, order };
     });
-  }, [date, setFilters, genres, status]);
+  }, [date, setFilters, genres, status, order]);
 
   function seasonSelectHandler(e: React.ChangeEvent<HTMLInputElement>) {
     const name = e.target.name;
@@ -56,6 +57,9 @@ export default function Filter(props: {
   return (
     <div className="filter">
       <form className="filter-form">
+        <div>
+          <OrderFilter order={order} setOrder={setOrder}></OrderFilter>
+        </div>
         <div>
           <AnimeStatus status={status} setStatus={setStatus}></AnimeStatus>
         </div>

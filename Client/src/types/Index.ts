@@ -8,6 +8,7 @@ export interface IndexAnimeType {
   licenseNameRu: string;
   english: string;
   japanese: string;
+  score: number;
   poster: {
     mainUrl: string;
   };

@@ -103,6 +103,7 @@ function MainAnimePage() {
             {animeList?.map((anime: IndexAnimeType) => (
               <li key={anime.id} className="main-list-item">
                 <Link to={`/anime/${anime.id}`} className="anime-card">
+                  <span className="anime-card__score">{anime.score}</span>
                   <img
                     className="anime-card__image"
                     src={anime.poster.mainUrl}

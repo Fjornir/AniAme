@@ -113,15 +113,20 @@ function DetailedAnimePage() {
 
     const bannerRes = await fetch(bannerUrl, bannerOptions);
     const banner = await bannerRes.json();
-    data.bannerImage = banner.data.Media.bannerImage;
-    data.coverImage = banner.data.Media.coverImage.large;
+    banner.data.Media
+      ? (data.bannerImage = banner.data.Media.bannerImage)
+      : (data.bannerImage = "");
+    banner.data.Media
+      ? (data.bannerImage = banner.data.Media.coverImage.large)
+      : (data.bannerImage = "");
+
     return data;
   };
 
   async function getAnime() {
     if (!id) return;
     let animeJson = await getAnimePageData(id);
-    // let animeJson = await res.json();
+
     setAnime(animeJson);
     setGalleryItems({
       images: animeJson.screenshots.map(

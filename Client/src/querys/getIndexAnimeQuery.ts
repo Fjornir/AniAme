@@ -7,6 +7,7 @@ const getIndexAnimeQuery = (limit: string, page: string) => `
     licenseNameRu
     english
     japanese
+    score
     poster {
       mainUrl
     }

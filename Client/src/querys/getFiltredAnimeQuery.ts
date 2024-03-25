@@ -9,7 +9,7 @@ const getFiltredAnimeQuery = (
 
   if (!filters) return;
 
-  const { date, genres, status } = filters;
+  const { date, genres, status, order } = filters;
 
   if (status?.length) {
     params.push(`status: "${status.join(",")}"`);
@@ -18,8 +18,10 @@ const getFiltredAnimeQuery = (
   if (genres?.length) {
     params.push(`genre: "${genres.join(",")}"`);
   }
-  
-  console.log(date);
+
+  if (order.length) {
+    params.push(`order: ${order}`);
+  }
 
   if (date?.isCheckedSeason) {
     if (date?.selectedSeasons.summer) {
@@ -67,6 +69,7 @@ const getFiltredAnimeQuery = (
         licenseNameRu
         english
         japanese
+        score
         poster {
           mainUrl
         }

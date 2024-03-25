@@ -39,15 +39,12 @@ export default function GenresCheckboxes(props: {
           .map((item) => item[1])
     );
 
-    setPersonName(
-      // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
+    setPersonName(typeof value === "string" ? value.split(",") : value);
   };
 
   return (
     <div className="genres">
-      <FormControl sx={{ m: 1, width: 300 }}>
+      <FormControl sx={{ m: 1, width: 300}}>
         <InputLabel id="demo-multiple-name-label">Жанры</InputLabel>
         <Select
           labelId="demo-multiple-name-label"

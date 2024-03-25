@@ -5,6 +5,7 @@ const GetAnimeSearchQuery = (search: string) =>
     russian
     kind
     status
+    score
     poster { id originalUrl mainUrl }
     releasedOn { year month day date }
     genres { id name russian kind }

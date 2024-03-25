@@ -25,6 +25,7 @@ function getDefaultFilters(
   return {
     genres: genreIds,
     status: [],
+    order: "ranked_shiki",
   };
 }
 
@@ -163,6 +164,12 @@ export default function ListAnimePage() {
           {animeList?.map((anime: IndexAnimeType) => (
             <li key={anime.id} className="main-list-item">
               <Link to={`/anime/${anime.id}`} className="anime-card">
+                {anime.score > 0 ? (
+                  <span className="anime-card__score">{anime.score}</span>
+                ) : (
+                  <span className="anime-card__score">Анонс</span>
+                )}
+
                 <img
                   className="anime-card__image"
                   src={

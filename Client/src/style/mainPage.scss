@@ -14,7 +14,7 @@
     padding: 0;
     grid-template-columns: repeat(6, 1fr);
     overflow: unset;
-    
+
     &-item {
       position: relative;
       max-width: 300px;
@@ -25,6 +25,17 @@
       .anime-card {
         display: block;
 
+        &__score {
+          position: absolute;
+          top: 5px;
+          left: 5px;
+          padding: 10px;
+          font-weight: 500;
+          color: #fefefe;
+          background-color: rgba(0, 0, 0, 0.6);
+          border-radius: 10px;
+        }
+        
         &__image {
           height: 320px;
           width: 100%;
@@ -81,7 +92,6 @@
 .swiper-pagination-bullet-active {
   background-color: #fefefe;
 }
-
 
 .infinite-scroll-component .main-list {
   overflow: unset;

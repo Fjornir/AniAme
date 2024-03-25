@@ -1,0 +1,21 @@
+.range-slider {
+  display: flex;
+  flex-direction: column;
+
+  &-item {
+  }
+}
+
+.range-line {
+  padding: 10px 0;
+}
+
+.css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper {
+    max-height: 500px !important;
+}
+
+.css-6hp17o-MuiList-root-MuiMenu-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
