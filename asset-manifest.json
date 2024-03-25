@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/AniAme/static/css/main.5f0f0a2f.css",
-    "main.js": "/AniAme/static/js/main.1ceb2c66.js",
+    "main.css": "/AniAme/static/css/main.b5392eae.css",
+    "main.js": "/AniAme/static/js/main.7cbd094a.js",
     "static/media/logo.png": "/AniAme/static/media/logo.6571d19c77cd58597170.png",
     "static/media/slider-background.jpg": "/AniAme/static/media/slider-background.e5f44711383240b7efa0.jpg",
     "index.html": "/AniAme/index.html",
     "static/media/search-svgrepo-com.svg": "/AniAme/static/media/search-svgrepo-com.fb37b675f19e0e63593981e57bc86a6b.svg",
     "static/media/close-lg-svgrepo-com.svg": "/AniAme/static/media/close-lg-svgrepo-com.4fcaee3d24f2b87f27f9.svg",
-    "main.5f0f0a2f.css.map": "/AniAme/static/css/main.5f0f0a2f.css.map",
-    "main.1ceb2c66.js.map": "/AniAme/static/js/main.1ceb2c66.js.map"
+    "main.b5392eae.css.map": "/AniAme/static/css/main.b5392eae.css.map",
+    "main.7cbd094a.js.map": "/AniAme/static/js/main.7cbd094a.js.map"
   },
   "entrypoints": [
-    "static/css/main.5f0f0a2f.css",
-    "static/js/main.1ceb2c66.js"
+    "static/css/main.b5392eae.css",
+    "static/js/main.7cbd094a.js"
   ]
 }
