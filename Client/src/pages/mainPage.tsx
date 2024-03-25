@@ -6,17 +6,48 @@ import Header from "../components/header";
 import Slider from "../components/slider";
 import Spinner from "../components/spinner";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { MainAnimePageDataType } from "../types/MainAnimePageDataType";
+import getIndexAnimeQuery from "../querys/getIndexAnimeQuery";
+import axios from "axios";
 
 function MainAnimePage() {
-  const [animeList, setAnimeList] = useState<IndexAnimeType[]>();
+  const [animeList, setAnimeList] = useState<MainAnimePageDataType[]>();
   const [page, setPage] = useState<number>(4);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  /////////////////// First data init
   useEffect(() => {
     fetchedData();
     window.addEventListener("scroll", handleScroll);
   }, []);
 
+  /////////////////// Query func for anime data
+  const getMainAnimePageData = async (
+    limit: string,
+    page: string
+  ): Promise<MainAnimePageDataType[]> => {
+    const url = "https://shikimori.one/api/graphql";
+    const headers = {
+      "Content-Type": "application/json",
+      Accept: "*/*",
+    };
+
+    const graphqlQuery = {
+      query: getIndexAnimeQuery(limit, page),
+      variables: {},
+    };
+
+    const response = await axios({
+      url: url,
+      method: "post",
+      headers: headers,
+      data: graphqlQuery,
+    });
+
+    return response.data.data.animes;
+  };
+
+  /////////////////// Func for bottom loader
   const handleScroll = () => {
     if (
       Math.ceil(window.innerHeight + document.documentElement.scrollTop + 1) !==
@@ -27,31 +58,18 @@ function MainAnimePage() {
     setIsLoading(true);
   };
 
+  /////////////////// Func for first anime pool
   const fetchedData = async () => {
-    let list = await fetch(
-      "http://localhost:8080/anime?" +
-        new URLSearchParams({
-          limit: "36",
-          page: "1",
-        })
-    );
-    let listJson = await list.json();
-    setAnimeList(listJson);
+    const listJson = getMainAnimePageData("36", "1");
+    setAnimeList(await listJson);
   };
 
+  /////////////////// Func for getting more animes
   const getMoreAnimes = async () => {
     setTimeout(async () => {
-      let list = await fetch(
-        "http://localhost:8080/anime?" +
-          new URLSearchParams({
-            limit: "24",
-            page: page.toString(),
-          })
-      );
+      const newPageAnimes = await getMainAnimePageData("24", page.toString());
 
       setPage(page + 1);
-
-      let newPageAnimes = await list.json();
 
       if (animeList) {
         setAnimeList(animeList.concat(newPageAnimes));
@@ -61,6 +79,7 @@ function MainAnimePage() {
     }, 0);
   };
 
+  /////////////////// Hook for getting more animes then on bottom
   useEffect(() => {
     if (!isLoading) {
       return;

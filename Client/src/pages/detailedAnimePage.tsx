@@ -9,6 +9,8 @@ import DetailedAnimePageInfo from "./detailedAnimePageComponents/detailedAnimePa
 import DetailedAnimePageSlider from "./detailedAnimePageComponents/detailedAnimePageSlider";
 import "react-image-gallery/styles/scss/image-gallery.scss";
 import ImageGallery, { ReactImageGalleryItem } from "react-image-gallery";
+import getAnimePageQuery from "../querys/getAnimePageQuery";
+import getAnimeBannerQuery from "../querys/getAnimeBannerQuery";
 
 function DetailedAnimePage() {
   const [anime, setAnime] = useState<AnimePageDataType>();
@@ -21,7 +23,7 @@ function DetailedAnimePage() {
   const [isVisibleVideoGallery, setIsVisibleVideoGallery] =
     useState<boolean>(false);
   const [currentGalleryItem, setCurrentGalleryItem] = useState<number>(0);
-  const { id } = useParams();
+  const { id } = useParams<string>();
 
   const escFunction = useCallback((event: { key: string }) => {
     if (event.key === "Escape") {
@@ -72,9 +74,54 @@ function DetailedAnimePage() {
     }
   }
 
+  const getAnimePageData = async (id: string): Promise<AnimePageDataType> => {
+    const url = "https://shikimori.one/api/graphql";
+    let data;
+
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "*/*",
+        "Accept-Encoding": "gzip, deflate, br",
+      },
+      body: JSON.stringify({
+        query: getAnimePageQuery(id),
+      }),
+    };
+
+    try {
+      const res = await fetch(url, options);
+      const animeList = await res.json();
+      data = animeList.data.animes[0];
+    } catch (error) {
+      console.error(error);
+    }
+
+    const bannerUrl = "https://graphql.anilist.co";
+    const bannerOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "*/*",
+        "Accept-Encoding": "gzip, deflate, br",
+      },
+      body: JSON.stringify({
+        query: getAnimeBannerQuery(data.malId),
+      }),
+    };
+
+    const bannerRes = await fetch(bannerUrl, bannerOptions);
+    const banner = await bannerRes.json();
+    data.bannerImage = banner.data.Media.bannerImage;
+    data.coverImage = banner.data.Media.coverImage.large;
+    return data;
+  };
+
   async function getAnime() {
-    let res = await fetch(`http://localhost:8080/anime/${id}`);
-    let animeJson = await res.json();
+    if (!id) return;
+    let animeJson = await getAnimePageData(id);
+    // let animeJson = await res.json();
     setAnime(animeJson);
     setGalleryItems({
       images: animeJson.screenshots.map(
